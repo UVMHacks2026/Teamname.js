@@ -23,3 +23,15 @@ class Player:
         self.silver += resources.silver
         self.iron += resources.iron
         self.copper += resources.copper
+
+    class Player:
+        def to_dict(self):
+            return {
+                "player_id": self.id,
+                "gold": self.gold,
+                "diamonds": self.diamonds,
+                "silver": self.silver,
+                "iron": self.iron,
+                "copper": self.copper,
+                "map_state": self.map.to_db_format()
+            }

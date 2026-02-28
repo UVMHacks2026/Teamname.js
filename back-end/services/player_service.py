@@ -1,6 +1,7 @@
 # backend/player_service.py
-
+from backend.database import get_connection
 from front-end.Map import Map
+from front-end
 import json
 
 def create_player_from_api_data(api_data):
@@ -42,12 +43,30 @@ def translate_financials_to_game_resources(api_data):
         "copper": copper
     }
 
-def load_map_for_game(player_id):
-    from backend.database import load_player_map
+def update_player_from_object(player):
 
-    map_string = load_player_map(player_id)
+    conn = get_connection()
+    cursor = conn.cursor()
 
-    if map_string is None:
-        return None
+    cursor.execute("""
+        UPDATE users
+        SET
+            gold = ?,
+            diamonds = ?,
+            silver = ?,
+            iron = ?,
+            copper = ?,
+            map_state = ?
+        WHERE player_id = ?
+    """, (
+        player.gold,
+        player.diamonds,
+        player.silver,
+        player.iron,
+        player.copper,
+        player.map.to_db_format(),
+        player.id
+    ))
 
-    return Map.from_db_format(map_string)
+    conn.commit()
+    conn.close()
