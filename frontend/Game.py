@@ -4,6 +4,7 @@ from Shop import Shop
 from Tower import Tower
 from Walls import Walls
 from Map import Map
+from TownHall import TownHall
 from SelectionMenu import SelectionMenu
 
 
@@ -20,6 +21,8 @@ build = Building()
 map.addBuilding(build,(20,10))
 shop = Shop()
 map.addBuilding(shop,(20,17))
+hall = TownHall()
+map.addBuilding(hall,(20,16))
 
 def getGridPos(mouse_pos, tile_size):
     x = mouse_pos[0] // tile_size
@@ -56,6 +59,7 @@ while running:
                 node = grid[y][x]
                 if node is None:
                     #Draw green square
+                    pygame.draw.rect(screen, (0, 0, 0), (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
                     pygame.draw.rect(screen, (0, 255, 0), (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE),1)
                 else:
                     node.draw(screen, TILE_SIZE)
