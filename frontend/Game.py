@@ -1,4 +1,6 @@
 import pygame
+
+from frontend.Houses import Houses
 #from Building import Building
 #from Shop import Shop
 #from Tower import Tower
@@ -6,10 +8,11 @@ import pygame
 #from Map import Map
 #from TownHall import TownHall
 #from Player import Player
-#from SelectionMenu import SelectionMenu
+from frontend.SelectionMenu import SelectionMenu
 from frontend.Building import Building
 from frontend.Shop import Shop
 from frontend.Tower import Tower
+from frontend.TownHall import TownHall
 from frontend.Walls import Walls
 from frontend.Map import Map
 
@@ -47,10 +50,47 @@ def runPyGame(player):
                 if event.key == pygame.K_q:
                     nodeClicked = False
                     menuDrawn = False
+                if event.key == pygame.K_z:
+                    if player.diamonds >= 10:
+                        gridLoc = getGridPos(mouseLoc, TILE_SIZE)
+                        map.grid[gridLoc[0]][gridLoc[1]] = TownHall()
+                        map.grid[gridLoc[0]][gridLoc[1]].location = gridLoc
+                        player.diamonds -= 10
+
+                if event.key == pygame.K_x:
+                    if player.gold >= 10:
+                        gridLoc = getGridPos(mouseLoc, TILE_SIZE)
+                        map.grid[gridLoc[0]][gridLoc[1]] = Tower()
+                        map.grid[gridLoc[0]][gridLoc[1]].location = gridLoc
+                        player.gold -= 10
+
+
+                if event.key == pygame.K_c:
+                    if player.silver >= 10:
+                        gridLoc = getGridPos(mouseLoc, TILE_SIZE)
+                        map.grid[gridLoc[0]][gridLoc[1]] = Shop()
+                        map.grid[gridLoc[0]][gridLoc[1]].location = gridLoc
+                        player.silver -= 10
+
+                if event.key == pygame.K_v:
+                    if player.iron >= 10:
+                        gridLoc = getGridPos(mouseLoc, TILE_SIZE)
+                        map.grid[gridLoc[0]][gridLoc[1]] = Houses()
+                        map.grid[gridLoc[0]][gridLoc[1]].location = gridLoc
+                        player.iron -= 10
+
+
+                if event.key == pygame.K_b:
+                    if player.copper >= 10:
+                        gridLoc = getGridPos(mouseLoc, TILE_SIZE)
+                        map.grid[gridLoc[0]][gridLoc[1]] = Walls()
+                        map.grid[gridLoc[0]][gridLoc[1]].location = gridLoc
+                        player.copper -= 10
+
 
         #Draws menu
         if nodeClicked and not menuDrawn:
-            menu.drawNodeMenu(screen)
+            menu.drawNodeMenu(screen, player)
             menuDrawn = True
 
 
@@ -60,8 +100,8 @@ def runPyGame(player):
                     node = grid[y][x]
                     if node is None:
                         #Draw green square
-                        pygame.draw.rect(screen, (0, 0, 0), (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
-                        pygame.draw.rect(screen, (0, 255, 0), (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE),1)
+                        pygame.draw.rect(screen, (40, 160, 40), (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
+                        pygame.draw.rect(screen, (50, 150, 50), (x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE),1)
                     else:
                         node.draw(screen, TILE_SIZE)
 

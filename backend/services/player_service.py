@@ -7,7 +7,7 @@ import json
 
 def create_player_from_game_data(game_data, player_id, username):
     player = Player(player_id, username, None,  0, 0, 0, 0, 0)
-    resources = convert_to_game(game_data["transactions"])
+    resources = convert_to_game(game_data)
     player.mutate_resources(resources)
     return player
 
@@ -25,9 +25,8 @@ def convert_to_game(game_data):
     if "savings" in game_data:
         gold += int(game_data["savings"] // 10)
 
-    # Investments → mid-tier resources
     if "investing" in game_data:
-        silver += int(game_data["investments"] // 50)
+        silver += int(game_data["investing"] // 50)
 
     # Optional additional categories
     if "spending" in game_data:
