@@ -1,6 +1,6 @@
 import pygame
-from Building import Building
-from Map import Map
+from frontend.Building import Building
+from frontend.Map import Map
 
 class SelectionMenu:
     def __init__(self):

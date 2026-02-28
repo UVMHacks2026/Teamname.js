@@ -1,4 +1,4 @@
-from Building import Building
+from frontend.Building import Building
 
 class Houses(Building):
     def __init__(self):

@@ -1,22 +1,22 @@
 # main.py
 
-from backend.player_service import load_player, save_player
-from frontend.player import Player
-from frontend.game import run_game
+from backend.services import plaid_services, player_service
 
+from frontend.Player import Player
 
 def main():
 
     # Add functionality to get player username from database
-    result = sync_plaid_for_player()
+    result = plaid_services.sync_plaid_for_player()
 
-    game_data = translate_financials_to_game_resources(result)
-    player = make_player_from_game_data(game_data)
+    game_data = player_service.translate_financials_to_game_resources(result)
+    player = player_service.make_player_from_game_data(game_data)
 
 
-    run_game(player)
+    player_service.run_game(player)
 
-    save_player(player)
+    player_service.save_player(player)
+    print(player)
 
 
 if __name__ == "__main__":

@@ -7,6 +7,11 @@ from Map import Map
 from TownHall import TownHall
 from SelectionMenu import SelectionMenu
 
+from frontend.Building import Building
+from frontend.Shop import Shop
+from frontend.Tower import Tower
+from frontend.Walls import Walls
+from frontend.Map import Map
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
