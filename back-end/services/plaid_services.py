@@ -48,8 +48,6 @@ request = TransactionsSyncRequest(
 response = client.transactions_sync(request)
 transactions = response['added']
 
-# the transactions in the response are paginated, so make multiple calls while incrementing the cursor to
-# retrieve all transactions
 while (response['has_more']):
     request = TransactionsSyncRequest(
         access_token=access_token,
