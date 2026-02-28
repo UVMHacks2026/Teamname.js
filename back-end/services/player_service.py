@@ -1,21 +1,34 @@
 # backend/player_service.py
+def create_player_from_api_data(api_data):
+    player = Player(api_data["id"], api_data["name"])
+    resources = translate_financials_to_game_resources(api_data["transactions"])
+    player.add_resources(resources)
+    return player
 
-from  import get_player_row
+def translate_financials_to_game_resources(api_data):
+    diamonds = 0
+    gold = 0
+    silver = 0
+    iron = 0
+    copper = 0
 
-class PlayerData:
-    def __init__(self, id, name, balance):
-        self.id = id
-        self.name = name
-        self.balance = balance
+    for t in transactions:
+        amount = t["amount"]
+        category = t["category"][0]
 
-def load_player(player_id):
-    row = get_player_row(player_id)
+        if category == "Income":
+            diamonds += int(amount // 100)
 
-    if row is None:
-        return None
+        elif category == "Food and Drink":
+            copper += int(amount // 10)
 
-    return PlayerData(
-        id=row[0],
-        name=row[1],
-        balance=row[2]
-    )
+        elif category == "Travel":
+            silver += int(amount // 50)
+
+    return {
+        "diamonds": diamonds,
+        "gold": gold,
+        "silver": silver,
+        "iron": iron,
+        "copper": copper
+    }

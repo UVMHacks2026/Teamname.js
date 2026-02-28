@@ -5,7 +5,7 @@ DB_PATH = "backend/game.db"
 def get_connection():
     return sqlite3.connect(DB_PATH)
 
-def get_player(player_id):
+def load_player(player_id):
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -21,6 +21,11 @@ def get_player(player_id):
             "balance": row[2]
         }
     return None
+
+def save_player(player_id, name, balance):
+    conn = get_connection()
+    cursor = conn.cursor()
+
 
 def load_map(player_id, rows=18, cols=32):
     conn = get_connection()
@@ -40,3 +45,7 @@ def load_map(player_id, rows=18, cols=32):
         list(flat_map[i*cols:(i+1)*cols])
         for i in range(rows)
     ]
+
+def save_map(player_id, map_data):
+    conn = get_connection()
+    cursor = conn.cursor()
