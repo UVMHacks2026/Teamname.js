@@ -57,3 +57,7 @@ class Player:
         self.silver = data["silver"]
         self.iron = data["iron"]
         self.copper = data["copper"]
+
+    def toString(self):
+        currencies = f"Gold: {self.gold}, Diamonds: {self.diamonds}, Silver: {self.silver}, Iron: {self.iron}, Copper: {self.copper}"
+        return currencies

@@ -5,6 +5,7 @@ from Tower import Tower
 from Walls import Walls
 from Map import Map
 from TownHall import TownHall
+from Player import Player
 from SelectionMenu import SelectionMenu
 
 
