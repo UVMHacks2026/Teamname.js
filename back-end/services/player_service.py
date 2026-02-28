@@ -2,7 +2,7 @@
 def create_player_from_api_data(api_data):
     player = Player(api_data["id"], api_data["name"])
     resources = translate_financials_to_game_resources(api_data["transactions"])
-    player.add_resources(resources)
+    player.mutate_resources(player, resources)
     return player
 
 def translate_financials_to_game_resources(api_data):
@@ -19,10 +19,10 @@ def translate_financials_to_game_resources(api_data):
         if category == "Income":
             diamonds += int(amount // 100)
 
-        elif category == "Food and Drink":
+        elif category == "Savings":
             copper += int(amount // 10)
 
-        elif category == "Travel":
+        elif category == "Investments":
             silver += int(amount // 50)
 
     return {
