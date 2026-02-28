@@ -1,6 +1,5 @@
 import plaid
 import time
-import database
 from plaid.api import plaid_api
 from plaid.model.transactions_sync_request import TransactionsSyncRequest
 from plaid.model.sandbox_public_token_create_request import SandboxPublicTokenCreateRequest
@@ -111,7 +110,3 @@ def sync_plaid_for_player(budget_limit=3000.00):
     return summary
 
 
-if __name__ == "__main__":
-    result = sync_plaid_for_player()
-    print(result)
-    print("Success! Saved to database.")

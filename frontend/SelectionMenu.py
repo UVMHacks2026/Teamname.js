@@ -1,7 +1,7 @@
 import pygame
-from Building import Building
-from Map import Map
-from Player import Player
+from frontend.Building import Building
+from frontend.Map import Map
+from frontend.Player import Player
 
 class SelectionMenu:
     def __init__(self):
