@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    player_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     level INTEGER DEFAULT 1,
@@ -12,11 +12,16 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS transactions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    player_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
     transaction_id TEXT UNIQUE,
     name TEXT,
     amount REAL,
     date TEXT,
     FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE TABLE map_state (
+    player_id INTEGER PRIMARY KEY,
+    map_data TEXT NOT NULL
 );
