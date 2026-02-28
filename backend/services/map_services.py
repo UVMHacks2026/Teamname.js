@@ -1,5 +1,5 @@
 from backend.database import get_connection
-from frontend.map import Map
+from frontend.Map import Map
 
 def save_map(player_id, game_map):
 
