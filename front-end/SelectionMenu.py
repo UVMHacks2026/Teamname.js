@@ -17,4 +17,9 @@ class SelectionMenu:
     def drawNodeMenu(self):
         if self.selectedNode or self.grid:
             return False
-        
+        #draw on top 
+        if self.selectedNode[1] > 10:
+            pass
+        #draw on bottom
+        else:
+            
