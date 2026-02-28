@@ -22,4 +22,5 @@ class SelectionMenu:
             pass
         #draw on bottom
         else:
-            
+            pygame.draw.rect(screen, self.color, (0, 720 - 200, 1280, 200))
+
