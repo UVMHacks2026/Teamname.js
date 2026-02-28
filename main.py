@@ -1,30 +1,22 @@
 # main.py
 
-from backend.player_service import load_player, save_player
-from frontend.player import Player
-from frontend.game import run_game
-
+from backend.services import plaid_services, player_service
+from frontend.Game import runPyGame
+from frontend.Player import Player
 
 def main():
-
+    player = Player("id", "name", "map_data", 1000, 1000, 1000, 1000, 1000)
+    runPyGame(player)
     # Add functionality to get player username from database
+    #game_data = plaid_services.sync_plaid_for_player()
+    #print(game_data)
+   #player = player_service.create_player_from_game_data(game_data)
 
-    data = load_player(1)
 
-    player = Player(
-        id=data["id"],
-        name=data["name"],
-        map_data=data["map_data"],
-        diamonds=data["diamonds"],
-        gold=data["gold"],
-        silver=data["silver"],
-        iron=data["iron"],
-        copper=data["copper"]
-    )
+    #player_service.run_game(player)
 
-    run_game(player)
-
-    save_player(player)
+    #player_service.save_player(player)
+    #print(player)
 
 
 if __name__ == "__main__":
