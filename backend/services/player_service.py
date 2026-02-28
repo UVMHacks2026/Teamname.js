@@ -1,6 +1,7 @@
 # backend/player_service.py
-from backend.database import get_connection
 from frontend.Player import Player
+from backend.database import get_connection
+from frontend.Map import Map
 import json
 
 def create_player_from_api_data(api_data):
@@ -69,3 +70,34 @@ def update_player_from_object(player):
 
     conn.commit()
     conn.close()
+
+def load_player_from_database(player_id):
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM users
+        WHERE player_id = ?
+    """, (player_id,))
+
+    row = cursor.fetchone()
+    conn.close()
+
+    if row is None:
+        return None
+
+    player = Player(
+        id = row["player_id"],
+        gold = row["gold"],
+        diamonds = row["diamonds"],
+        silver = row["silver"],
+        iron = row["iron"],
+        copper = row["copper"]
+    )
+
+    if row["map_state"]:
+        player.map = Map.from_db_format(row["map_state"])
+
+    return player
