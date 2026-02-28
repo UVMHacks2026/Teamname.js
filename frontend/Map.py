@@ -1,4 +1,4 @@
-from frontend.Building import Building
+from Building import Building
 import json
 
 class Map:
