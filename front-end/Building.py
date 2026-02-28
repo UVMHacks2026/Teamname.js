@@ -1,5 +1,7 @@
 import pygame
 class Building:
+    BUILDING_REGISTRY = {}
+
     def __init__(self):
         self.level = 1
         self.untilNextLevel = 100
@@ -48,4 +50,23 @@ class Building:
     
     def updateCost(self,cost):
         self.cost = cost
-    
+
+    def to_dict(self):
+        return {
+            "type": self.__class__.__name__,
+            "level": self.level,
+            "isDestroyed": self.isDestroyed,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        from frontend.building_registry import BUILDING_REGISTRY
+
+        building_type = data["type"]
+
+        if building_type not in BUILDING_REGISTRY:
+            raise ValueError(f"Unknown building type: {building_type}")
+
+        building_class = BUILDING_REGISTRY[building_type]
+
+        return building_class.from_dict(data)

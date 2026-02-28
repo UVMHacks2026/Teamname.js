@@ -36,9 +36,30 @@ class Map:
             return self.grid
 
     def to_db_format(self):
-        return json.dumps(self.grid)
+        return json.dumps([
+            [cell.to_dict() if cell else None for cell in row]
+            for row in self.grid
+        ])
 
-    @staticmethod
-    def from_db_format(data):
-        grid = json.loads(data)
-        return (grid)
+    @classmethod
+    def from_db_format(cls, json_string):
+
+        if json_string is None:
+            return cls([])
+
+        data = json.loads(json_string)
+
+        grid = []
+
+        for row in data:
+            new_row = []
+
+            for cell in row:
+                if cell is None:
+                    new_row.append(None)
+                else:
+                    new_row.append(Building.from_dict(cell))
+
+            grid.append(new_row)
+
+        return cls(grid)
