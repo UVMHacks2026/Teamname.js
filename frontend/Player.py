@@ -1,5 +1,5 @@
 # frontend/player.py
-from Map import Map
+from frontend.Map import Map
 
 class Player:
     def __init__(self, id, name, map_data,
