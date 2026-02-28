@@ -10,24 +10,28 @@ def create_player_from_api_data(api_data):
     return player
 
 def translate_financials_to_game_resources(api_data):
+
     diamonds = 0
     gold = 0
     silver = 0
     iron = 0
     copper = 0
 
-    for t in transactions:
-        amount = t["amount"]
-        category = t["category"][0]
+    # Income → high value currency
+    if "income" in api_data:
+        diamonds += int(api_data["income"] // 100)
 
-        if category == "Income":
-            diamonds += int(amount // 100)
+    # Savings → basic resources
+    if "savings" in api_data:
+        copper += int(api_data["savings"] // 10)
 
-        elif category == "Savings":
-            copper += int(amount // 10)
+    # Investments → mid-tier resources
+    if "investments" in api_data:
+        silver += int(api_data["investments"] // 50)
 
-        elif category == "Investments":
-            silver += int(amount // 50)
+    # Optional additional categories
+    if "spending" in api_data:
+        iron += int(api_data["spending"] // 75)
 
     return {
         "diamonds": diamonds,
