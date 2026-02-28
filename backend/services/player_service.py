@@ -2,10 +2,11 @@
 from frontend.Player import Player
 from backend.database import get_connection
 from frontend.Map import Map
+import random
 import json
 
-def create_player_from_game_data(game_data):
-    player = Player(game_data["id"], game_data["name"])
+def create_player_from_game_data(game_data, player_id, username):
+    player = Player(player_id, username, None,  0, 0, 0, 0, 0)
     resources = convert_to_game(game_data["transactions"])
     player.mutate_resources(resources)
     return player
