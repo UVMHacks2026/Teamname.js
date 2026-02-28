@@ -1,6 +1,6 @@
 # backend/player_service.py
 
-from frontend.map import GameMap
+from front-end.Map import Map
 import json
 
 def create_player_from_api_data(api_data):
@@ -17,21 +17,22 @@ def translate_financials_to_game_resources(api_data):
     iron = 0
     copper = 0
 
-    # Income → high value currency
     if "income" in api_data:
         diamonds += int(api_data["income"] // 100)
 
-    # Savings → basic resources
     if "savings" in api_data:
-        copper += int(api_data["savings"] // 10)
+        gold += int(api_data["savings"] // 10)
 
     # Investments → mid-tier resources
-    if "investments" in api_data:
+    if "investing" in api_data:
         silver += int(api_data["investments"] // 50)
 
     # Optional additional categories
     if "spending" in api_data:
         iron += int(api_data["spending"] // 75)
+
+    if "paying_debt" in api_data:
+        copper += int(api_data["paying_debt"] // 150)
 
     return {
         "diamonds": diamonds,
