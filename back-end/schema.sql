@@ -2,7 +2,9 @@ CREATE TABLE IF NOT EXISTS users (
     player_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
+    map_state TEXT DEFAULT ,
     level INTEGER DEFAULT 1,
+    budget_limit INTEGER DEFAULT 10000,
     gold INTEGER DEFAULT 0,
     diamonds INTEGER DEFAULT 0,
     silver INTEGER DEFAULT 0,
@@ -19,9 +21,4 @@ CREATE TABLE IF NOT EXISTS transactions (
     amount REAL,
     date TEXT,
     FOREIGN KEY(user_id) REFERENCES users(id)
-);
-
-CREATE TABLE map_state (
-    player_id INTEGER PRIMARY KEY,
-    map_data TEXT NOT NULL
 );

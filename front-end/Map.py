@@ -1,4 +1,6 @@
 from Building import Building
+import json
+
 class Map:
     #X,Y
     CoordinatePlane = [1280, 720]
@@ -32,3 +34,11 @@ class Map:
     
     def getGrid(self):
             return self.grid
+
+    def to_db_format(self):
+        return json.dumps(self.grid)
+
+    @staticmethod
+    def from_db_format(data):
+        grid = json.loads(data)
+        return (grid)

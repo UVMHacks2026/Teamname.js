@@ -1,4 +1,5 @@
 import sqlite3
+import json
 
 DB_PATH = "backend/game.db"
 
@@ -26,26 +27,33 @@ def save_player(player_id, name, balance):
     conn = get_connection()
     cursor = conn.cursor()
 
-
-def load_map(player_id, rows=18, cols=32):
+def load_player_map(player_id):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT map_data FROM map_state WHERE player_id = ?", (player_id,))
-    row = cursor.fetchone()
+    cursor.execute("""
+        SELECT map_state
+        FROM users
+        WHERE player_id = ?
+    """, (player_id,))
 
+    row = cursor.fetchone()
     conn.close()
 
-    if row is None:
+    if row is None or row["map_state"] is None:
         return None
 
-    flat_map = row[0]
+    return row["map_state"]
 
-    return [
-        list(flat_map[i*cols:(i+1)*cols])
-        for i in range(rows)
-    ]
-
-def save_map(player_id, map_data):
+def save_player_map(player_id, map_string):
     conn = get_connection()
     cursor = conn.cursor()
+
+    cursor.execute("""
+        UPDATE users
+        SET map_state = ?
+        WHERE player_id = ?
+    """, (map_string, player_id))
+
+    conn.commit()
+    conn.close()
