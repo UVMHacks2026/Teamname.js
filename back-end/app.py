@@ -1,9 +1,13 @@
-from flask import Flask
-from database import init_db
+from flask import Blueprint, request, jsonify
+from services.plaid_service import exchange_public_token
 
-app = Flask(__name__)
+plaid_bp = Blueprint("plaid", __name__)
 
-init_db()
+@plaid_bp.route("/plaid/exchange", methods=["POST"])
+def exchange():
+    data = request.json
+    public_token = data["public_token"]
 
-if __name__ == "__main__":
-    app.run(debug = True)
+    access_token = exchange_public_token(public_token)
+
+    return jsonify({"message": "Token exchanged"})
