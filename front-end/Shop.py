@@ -1,9 +1,8 @@
 from Building import Building
 
-class Tower(Building):
-    def __init__(self, building):
+class Shop(Building):
+    def __init__(self):
         super().__init__()
-        self.color = (255, 0, 0)
+        self.color = (0, 0, 255)
         buildingSize = 40
-
         
