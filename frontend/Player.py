@@ -26,12 +26,12 @@ class Player:
         return True
 
 
-    def mutate_resources(self, resources):
-        self.diamonds += resources.diamonds
-        self.gold += resources.gold
-        self.silver += resources.silver
-        self.iron += resources.iron
-        self.copper += resources.copper
+    def mutate_resources(self, resources_dict):
+        self.diamonds = resources_dict["diamonds"]
+        self.gold = resources_dict["gold"]
+        self.silver = resources_dict["silver"]
+        self.iron = resources_dict["iron"]
+        self.copper = resources_dict["copper"]
 
     def has_resources_for(self, building_type):
         return self.diamonds >= building_type.cost.diamonds and \
