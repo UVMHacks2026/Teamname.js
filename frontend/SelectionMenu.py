@@ -14,7 +14,7 @@ class SelectionMenu:
     def drawNodeMenu(self,screen):
         font = pygame.font.Font(None, 36)  # None = default font, 36 = size
         currencies = player.toString()
-        font.render(, True, (255, 255, 255))  # text, antialias, color
+        #font.render(, True, (255, 255, 255))  # text, antialias, color
         #draw on top 
         if self.selectedNode > 10:
             pygame.draw.rect(screen, self.color, (0, 0, 1280, 200))

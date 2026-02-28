@@ -7,10 +7,9 @@ from frontend.Player import Player
 def main():
 
     # Add functionality to get player username from database
-    result = plaid_services.sync_plaid_for_player()
-
-    game_data = player_service.translate_financials_to_game_resources(result)
-    player = player_service.make_player_from_game_data(game_data)
+    game_data = plaid_services.sync_plaid_for_player()
+    print(game_data)
+    player = player_service.create_player_from_game_data(game_data)
 
 
     player_service.run_game(player)

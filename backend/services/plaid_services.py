@@ -96,7 +96,7 @@ def parse_transactions(transactions, budget_limit=3000.00):
         "total_spent": total_spent,
         "not_overspending_score": not_overspending_score
     }
-    return parsed_data, summary
+    return summary
 
 
 def sync_plaid_for_player(budget_limit=3000.00):
