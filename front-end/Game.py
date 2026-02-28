@@ -16,18 +16,20 @@ map.addBuilding(build,(20,10))
 shop = Shop()
 map.addBuilding(shop,(20,17))
 
+def getGridPos(mouse_pos, tile_size):
+    x = mouse_pos[0] // tile_size
+    y = mouse_pos[1] // tile_size
+    return [x, y]
+
 
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # fill the screen with a color to wipe away anything from last frame
-
-    # RENDER YOUR GAME HERE
     grid = map.getGrid()
+    mouseLoc = getGridPos(pygame.mouse.get_pos(), TILE_SIZE)
 
     for y in range(len(grid)):
         for x in range(len(grid[y])):
@@ -39,9 +41,9 @@ while running:
                 node.draw(screen, TILE_SIZE)
 
 
-    # flip() the display to put your work on screen
     pygame.display.flip()
 
-    clock.tick(60)  # limits FPS to 60
+    clock.tick(60)
 
 pygame.quit()
+
