@@ -8,19 +8,11 @@ from frontend.game import run_game
 def main():
 
     # Add functionality to get player username from database
+    result = sync_plaid_for_player()
 
-    data = load_player(1)
+    game_data = translate_financials_to_game_resources(result)
+    player = make_player_from_game_data(game_data)
 
-    player = Player(
-        id=data["id"],
-        name=data["name"],
-        map_data=data["map_data"],
-        diamonds=data["diamonds"],
-        gold=data["gold"],
-        silver=data["silver"],
-        iron=data["iron"],
-        copper=data["copper"]
-    )
 
     run_game(player)
 
